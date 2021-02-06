@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "author": "Hitesh Lala",
+  "name": "Password Helper",
+  "version": "1.0.0",
+  "background": {
+     "service_worker": "background.js"
+  },
+  "action": {
+    "name": "Click to unblock.",
+    "matches": [],
+    "default_popup": "popup.html"
+  },
+  "permissions": [ 
+    "tabs", 
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://my.personal.web.site.here/"
+  ],
+  "icons": {
+    "48": "icon.png"
+  },
+  "options_page": "options.html"
+}

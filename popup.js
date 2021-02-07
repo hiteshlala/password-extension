@@ -1,4 +1,4 @@
-const server = 'http://localhost:7000';
+const server = 'https://hiteshlala.biz';
 let passwords = [];
 let auth;
 let index = 0;
@@ -167,10 +167,10 @@ async function setup() {
       const r = await getRequest( `${server}/api/passwords${q ? `?filter=${q}` : ''}` );
       passwords = r.passwords;
       query.value = q;
+      populateItem();
       logout.classList.remove( 'hide' );
       search.classList.remove( 'hide' );
       results.classList.remove( 'hide' );
-      populateItem();
     }
     else {
       login.classList.remove( 'hide' );
@@ -224,6 +224,11 @@ submitlogin.addEventListener( 'click', async () => {
       password.value = '';
       search.classList.remove( 'hide' );
       results.classList.remove( 'hide' );
+      const q = await getUrl();
+      const p = await getRequest( `${server}/api/passwords${q ? `?filter=${q}` : ''}` );
+      passwords = p.passwords;
+      query.value = q;
+      populateItem();
     } 
     else {
       loginmsg.innerText = `${r.message}`;

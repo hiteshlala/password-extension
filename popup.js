@@ -186,17 +186,18 @@ async function setup() {
 
 function populateItem() {
   const i = passwords[ index ];
-  page.innerText = `${index + 1} of ${passwords.length}`;
-  ititle.value = i.title;
-  iurl.value = i.url;
-  iusername.value = i.username;
-  ipassword.value = i.password;
-  iaccountno.value = i.accountno;
-  ichallenge1.value = i.challenge1;
-  ichallenge2.value = i.challenge2;
-  iemail.value = i.email;
-  inotestext.value = i.notes;
-
+  page.innerText = `${i ? index + 1 : 0 } of ${passwords.length}`;
+  if ( i ) {
+    ititle.value = i.title;
+    iurl.value = i.url;
+    iusername.value = i.username;
+    ipassword.value = i.password;
+    iaccountno.value = i.accountno;
+    ichallenge1.value = i.challenge1;
+    ichallenge2.value = i.challenge2;
+    iemail.value = i.email;
+    inotestext.value = i.notes;
+  }
 } 
 
 async function querychange() {

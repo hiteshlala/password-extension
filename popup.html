@@ -4,24 +4,68 @@
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-    <div id="logout">
-      <!-- logout button -->
-  
-    </div>
-    <div id="login">
-      <!-- login in screen -->
-      
 
+    <div id="logout" class="hide">
+      <div class="but"><input id="submitlogout" type="button" value="Logout"/></div>
     </div>
-    <div id="search">
-      <!-- display search bar  -->
+
+    <div id="login" class="hide">
+      <div class="title">Login</div>
+      <div class="inputlabel">Username:</div>
+      <div class="input"><input id="username" type="text" placeholder="username"/></div>
+      <div class="inputlabel">Password:</div>
+      <div class="input"><input id="password" type="password" placeholder="password"/></div>
+      <div class="but"><input id="submitlogin" type="button" value="Submit"/></div>
+      <div id="loginmsg"></div>
     </div>
-    <div id="results">
-      <!-- search results -->
+
+    <div id="message" class="hide"></div>
+
+    <div id="search" class="resbar hide">
+      <input id="query" type="text"/>
+      <div id="clear" class="arrow"> x </div>
     </div>
-    <div id="loading">
-      <!-- loading -->
+
+    <div id="results" class="hide">
+      <div class="resbar">
+        <div id="left" class="arrow"> < </div>
+        <div id="page"> </div>
+        <div class="arrow" id="right"> > </div>
+      </div>
+
+      <div id="item">
+        <div>Title:</div>
+        <div><input type="text" id="i-title"/></div>
+
+        <div>Url:</div>
+        <div><input type="text" id="i-url"/></div>
+
+        <div>Username:</div>
+        <div><input type="text" id="i-username" /></div>
+
+        <div>Password:</div>
+        <div><input type="text" id="i-password" /></div>
+
+        <div>Account No:</div>
+        <div><input type="text" id="i-accountno" /></div>
+
+        <div>Challenge 1:</div>
+        <div><input type="text" id="i-challenge1" /></div>
+
+        <div>Challenge 2:</div>
+        <div><input type="text" id="i-challenge2" /></div>
+
+        <div>Email:</div>
+        <div><input type="text" id="i-email" /></div>
+
+        <div>Notes:</div>
+        <textarea  class="inputtext" id="i-notes-text" ></textarea>
+
+      </div>
     </div>
-    <script src="popup.js"></script>
+
+    <div id="loading" class="loading"></div>
+
+    <script src="popup.js"></script>    
   </body>
 </html>

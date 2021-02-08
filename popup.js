@@ -4,7 +4,6 @@ let auth;
 let index = 0;
 
 const loading = document.getElementById( 'loading' );
-const logout = document.getElementById( 'logout' );
 const submitlogout = document.getElementById( 'submitlogout' );
 const login = document.getElementById( 'login' );
 const submitlogin = document.getElementById( 'submitlogin' );
@@ -168,7 +167,7 @@ async function setup() {
       passwords = r.passwords;
       query.value = q;
       populateItem();
-      logout.classList.remove( 'hide' );
+      submitlogout.classList.remove( 'hide' );
       search.classList.remove( 'hide' );
       results.classList.remove( 'hide' );
     }
@@ -184,19 +183,32 @@ async function setup() {
   }
 }
 
-function populateItem() {
-  const i = passwords[ index ];
-  page.innerText = `${i ? index + 1 : 0 } of ${passwords.length}`;
-  if ( i ) {
-    ititle.value = i.title;
-    iurl.value = i.url;
-    iusername.value = i.username;
-    ipassword.value = i.password;
-    iaccountno.value = i.accountno;
-    ichallenge1.value = i.challenge1;
-    ichallenge2.value = i.challenge2;
-    iemail.value = i.email;
-    inotestext.value = i.notes;
+function populateItem( newitem ) {
+  if ( newitem ) {
+    ititle.value = '';
+    iurl.value = '';
+    iusername.value = '';
+    ipassword.value = '';
+    iaccountno.value = '';
+    ichallenge1.value = '';
+    ichallenge2.value = '';
+    iemail.value = '';
+    inotestext.value = '';
+  }
+  else {
+    const i = passwords[ index ];
+    page.innerText = `${i ? index + 1 : 0 } of ${passwords.length}`;
+    if ( i ) {
+      ititle.value = i.title;
+      iurl.value = i.url;
+      iusername.value = i.username;
+      ipassword.value = i.password;
+      iaccountno.value = i.accountno;
+      ichallenge1.value = i.challenge1;
+      ichallenge2.value = i.challenge2;
+      iemail.value = i.email;
+      inotestext.value = i.notes;
+    }
   }
 } 
 
@@ -221,7 +233,7 @@ submitlogin.addEventListener( 'click', async () => {
       auth = r.key;
       await new Promise( resolve => chrome.storage.local.set( { key: r.key }, resolve ) );
       login.classList.add( 'hide' );
-      logout.classList.remove( 'hide' );
+      submitlogout.classList.remove( 'hide' );
       password.value = '';
       search.classList.remove( 'hide' );
       results.classList.remove( 'hide' );
@@ -252,7 +264,7 @@ submitlogout.addEventListener( 'click', async () => {
     console.error(e);
   }
   login.classList.remove( 'hide' );
-  logout.classList.add( 'hide' );
+  submitlogout.classList.add( 'hide' );
   search.classList.add( 'hide' );
   results.classList.add( 'hide' );
 });

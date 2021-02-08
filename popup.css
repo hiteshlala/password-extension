@@ -1,5 +1,11 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
 body {
-  max-width: 170px;
+  width: 320px;
+  border: 1px solid rgb(255, 218, 192);
 }
 
 .hide {
@@ -24,13 +30,67 @@ body {
 .resbar {
   display: flex;
   flex-direction: row;
+  height: 30px;
+  line-height: 30px;
+  padding: 0px 10px;
+}
+
+.resbar input {
+  margin-top: 3px;
+  margin-left: 5px;
+  height: 24px;
+}
+
+.resbar div.x {
+  border-radius: 50%;
+  border: 1px solid rgb(255, 218, 192);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.resbar div.x:hover {
+  background-color: rgb(255, 218, 192);
+}
+
+div#results {
+  padding: 0px 10px;
+}
+
+.pager {
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  height: 22px;
+  line-height: 22px;
+  border-top: 1px solid rgb(255, 218, 192);
+  border-bottom: 1px solid rgb(255, 218, 192);
 }
 
 .arrow {
   cursor: pointer;
-  min-width: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
+  border-radius: 50%;
+  border: 1px solid rgb(255, 218, 192);
+}
+.arrow:hover {
+  background-color: rgb(255, 218, 192);
+}
+
+.item div {
+  line-height: 22px;
+  height: 22px;
+}
+
+.item div.input input {
+  width: 100%;
 }
 
 .inputtext {
@@ -38,6 +98,61 @@ body {
   width: 100%;
   box-sizing: 'border-box';
 }
+
+.logout {
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: row;
+  line-height: 30px;
+  height: 30px;
+  background-color: rgb(255, 218, 192);
+  padding: 0px 10px;
+}
+
+.logout input {
+  margin-top: 5px;
+  height: 18px;
+  font-size: 75%;
+}
+
+.logout img {
+  margin-top: 3px;
+  margin-right: 5px;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.login {
+  max-width: 200px;
+  margin: 0px auto;
+}
+
+.login div {
+  height: 30px;
+  line-height: 30px;
+}
+
+.login div.title {
+  font-size: 20px;
+  width: fit-content;
+  margin: 0px auto;
+}
+
+.login div.but {
+  width: fit-content;
+  margin: 0px auto;
+}
+
+input#password {
+  width: 100%;
+}
+
+input#username {
+  width: 100%;
+}
+
 
 
 

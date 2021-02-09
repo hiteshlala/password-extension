@@ -19,7 +19,7 @@ body {
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
-  margin: 0px auto;
+  margin: 30px auto;
 }
 
 @keyframes spin {
@@ -35,10 +35,16 @@ body {
   padding: 0px 10px;
 }
 
-.resbar input {
+.resbar input#query {
   margin-top: 3px;
   margin-left: 5px;
   height: 24px;
+}
+
+.resbar input#additem {
+  margin-top: 6px;
+  height: 18px;
+  font-size: 75%;
 }
 
 .resbar div.x {
@@ -153,6 +159,39 @@ input#username {
   width: 100%;
 }
 
+#adder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 31px;
+  line-height: 31px;
+  border-bottom: 1px solid rgb(255, 218, 192);
+}
+
+#adder input {
+  margin-top: 6px;
+  height: 18px;
+  font-size: 75%;
+}
+
+#message {
+  margin: 10px 0px;
+  padding: 0px 10px;
+  text-align: center;
+}
+
+#editbutton {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  line-height: 30px;
+}
+
+#editbutton input {
+  margin-top: 6px;
+  height: 18px;
+  font-size: 75%;
+}
 
 
 

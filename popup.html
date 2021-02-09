@@ -24,9 +24,8 @@
       <div id="loginmsg"></div>
     </div>
 
-    <div id="message" class="hide"></div>
-
     <div id="search" class="resbar hide">
+      <input id="additem" type="button" value="Add"/>
       <div class="spacer"></div>
       <div>Search: </div>
       <input id="query" type="text"/>
@@ -34,13 +33,24 @@
     </div>
 
     <div id="results" class="hide">
-      <div class="pager">
+      <div class="pager" id="pager">
         <div id="left" class="arrow"> < </div>
         <div id="page"> </div>
         <div class="arrow" id="right"> > </div>
       </div>
 
+      <div id="adder" class="adder hide">
+        <input id="addcancel" type="button" value="Cancel"/>
+        <input id="adddelete" type="button" value="Delete"/>
+        <input id="addsubmit" type="button" value="Submit"/>
+      </div>
+
       <div id="item" class="item">
+        <div id="editbutton">
+          <div class="spacer"></div>
+          <input id="edit" type="button" value="Edit"/>
+        </div>
+
         <div class="heading">Title:</div>
         <div class="input"><input type="text" id="i-title"/></div>
 
@@ -70,6 +80,8 @@
 
       </div>
     </div>
+
+    <div id="message" class="hide"></div>
 
     <div id="loading" class="loading"></div>
 

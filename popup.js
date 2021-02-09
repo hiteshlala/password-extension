@@ -2,6 +2,7 @@ const server = 'https://hiteshlala.biz';
 let passwords = [];
 let auth;
 let index = 0;
+let editing;
 
 const loading = document.getElementById( 'loading' );
 const submitlogout = document.getElementById( 'submitlogout' );
@@ -29,6 +30,15 @@ const ichallenge1 = document.getElementById( 'i-challenge1' );
 const ichallenge2 = document.getElementById( 'i-challenge2' );
 const iemail = document.getElementById( 'i-email' );
 const inotestext = document.getElementById( 'i-notes-text' );
+
+const pager = document.getElementById( 'pager' );
+const additem = document.getElementById( 'additem' );
+const adder = document.getElementById( 'adder' );
+const adddelete = document.getElementById( 'adddelete' );
+const addcancel = document.getElementById( 'addcancel' );
+const addsubmit = document.getElementById( 'addsubmit' );
+const editbutton = document.getElementById( 'editbutton' );
+const edit = document.getElementById( 'edit' );
 
 
 function getRequest( url ) {
@@ -166,6 +176,7 @@ async function setup() {
       const r = await getRequest( `${server}/api/passwords${q ? `?filter=${q}` : ''}` );
       passwords = r.passwords;
       query.value = q;
+      disableItemEntry( true );
       populateItem();
       submitlogout.classList.remove( 'hide' );
       search.classList.remove( 'hide' );
@@ -184,7 +195,9 @@ async function setup() {
 }
 
 function populateItem( newitem ) {
-  if ( newitem ) {
+  const i = passwords[ index ];
+  page.innerText = `${i ? index + 1 : 0 } of ${passwords.length}`;
+  if ( newitem || !i ) {
     ititle.value = '';
     iurl.value = '';
     iusername.value = '';
@@ -195,22 +208,31 @@ function populateItem( newitem ) {
     iemail.value = '';
     inotestext.value = '';
   }
-  else {
-    const i = passwords[ index ];
-    page.innerText = `${i ? index + 1 : 0 } of ${passwords.length}`;
-    if ( i ) {
-      ititle.value = i.title;
-      iurl.value = i.url;
-      iusername.value = i.username;
-      ipassword.value = i.password;
-      iaccountno.value = i.accountno;
-      ichallenge1.value = i.challenge1;
-      ichallenge2.value = i.challenge2;
-      iemail.value = i.email;
-      inotestext.value = i.notes;
-    }
+  else if ( i ) {
+    ititle.value = i.title;
+    iurl.value = i.url;
+    iusername.value = i.username;
+    ipassword.value = i.password;
+    iaccountno.value = i.accountno;
+    ichallenge1.value = i.challenge1;
+    ichallenge2.value = i.challenge2;
+    iemail.value = i.email;
+    inotestext.value = i.notes;
   }
+  
 } 
+
+function disableItemEntry( disable ) {
+  ititle.disabled = disable;
+  iurl.disabled = disable;
+  iusername.disabled = disable;
+  ipassword.disabled = disable;
+  iaccountno.disabled = disable;
+  ichallenge1.disabled = disable;
+  ichallenge2.disabled = disable;
+  iemail.disabled = disable;
+  inotestext.disabled = disable;
+}
 
 async function querychange() {
   try {
@@ -305,9 +327,127 @@ clear.addEventListener( 'click', async () => {
   }
 });
 
+additem.addEventListener( 'click', async () => {
+  try {
+    search.classList.add( 'hide' );
+    pager.classList.add( 'hide' );
+    adder.classList.remove( 'hide' );
+    adddelete.classList.add( 'hide' );
+    editbutton.classList.add( 'hide' );
+    populateItem( true );
+    disableItemEntry( false );
+    editing = undefined;
+  }
+  catch( e ) {
+    console.error(e);
+  }
+});
 
+addcancel.addEventListener( 'click', async () => {
+  try {
+    search.classList.remove( 'hide' );
+    pager.classList.remove( 'hide' );
+    adder.classList.add( 'hide' );
+    adddelete.classList.remove( 'hide' );
+    item.classList.remove( 'hide' );
+    message.innerText = ``;
+    message.classList.add( 'hide' );
+    editbutton.classList.remove( 'hide' );
+    populateItem();
+    disableItemEntry( true );
+    editing = undefined;
+  }
+  catch( e ) {
+    console.error(e);
+  }
+});
 
+addsubmit.addEventListener( 'click', async () => {
+  try {
+    item.classList.add( 'hide' );
+    loading.classList.remove( 'hide' );
 
+    const newEntry = {
+      title: ititle.value,
+      url: iurl.value,
+      username: iusername.value,
+      password: ipassword.value,
+      accountno: iaccountno.value,
+      challenge1: ichallenge1.value,
+      challenge2: ichallenge2.value,
+      email: iemail.value,
+      notes: inotestext.value,
+    };
+
+    if ( editing ) {
+      const tosubmit = Object.assign( {}, editing, newEntry );
+      await patchRequest( `${server}/api/passwords/${tosubmit.id}`, tosubmit );
+    }
+    else {
+      await postRequest( `${server}/api/passwords`, newEntry );
+    }
+
+    query.value = '';
+    querychange();
+
+    loading.classList.add( 'hide' );
+    item.classList.remove( 'hide' );
+    search.classList.remove( 'hide' );
+    pager.classList.remove( 'hide' );
+    adder.classList.add( 'hide' );
+    adddelete.classList.remove( 'hide' );
+    editbutton.classList.remove( 'hide' );
+    populateItem();
+    disableItemEntry( true );
+    editing = undefined;
+  }
+  catch( e ) {
+    console.error(e);
+    loading.classList.add( 'hide' );
+    message.innerText = `${e.message || e}`;
+    message.classList.remove( 'hide' )
+  }
+});
+
+edit.addEventListener( 'click', async () => {
+  try {
+    search.classList.add( 'hide' );
+    pager.classList.add( 'hide' );
+    adder.classList.remove( 'hide' );
+    editbutton.classList.add( 'hide' );
+    editing = passwords[ index ];
+    populateItem();
+    disableItemEntry( false );
+  }
+  catch( e ) {
+    console.error(e);
+  }
+});
+
+adddelete.addEventListener( 'click', async () => {
+  try {
+    item.classList.add( 'hide' );
+    loading.classList.remove( 'hide' );
+    await deleteRequest( `${server}/api/passwords/${editing.id}` );
+    query.value = '';
+    querychange();
+    loading.classList.add( 'hide' );
+    item.classList.remove( 'hide' );
+    search.classList.remove( 'hide' );
+    pager.classList.remove( 'hide' );
+    adder.classList.add( 'hide' );
+    editbutton.classList.remove( 'hide' );
+    populateItem();
+    disableItemEntry( true );
+    editing = undefined;
+  }
+  catch( e ) {
+    console.error(e);
+    loading.classList.add( 'hide' );
+    message.innerText = `${e.message || e}`;
+    message.classList.remove( 'hide' )
+  }
+});
 
 window.onload = () => {
   setup().catch(console.error );
